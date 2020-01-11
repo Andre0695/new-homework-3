@@ -1,0 +1,68 @@
+---
+title: "hw3"
+author: "Andre"
+date: "22 10 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+rm(list=ls())
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+```
+
+```{r}
+setwd("C:/users/André Grimsgaard/Documents/hw3")
+
+births2017 <- read_fwf("Nat2017PublicUS.c20180516.r20180808.txt",
+fwf_positions( start = c(9,13,504,475),
+             end = c(12,14,507,475),
+             col_names = c("date", "birth_month" , "Weigth", "sex"
+                           )) )
+```
+
+```{r}
+setwd("C:/Users/André Grimsgaard/Documents/hw3")
+births2018 <- read_fwf("Nat2018PublicUS.c20190509.r20190717.txt" ,
+fwf_positions( start = c(9 , 13, 504, 475) ,
+              end = c(12,14,507,475) ,
+              col_names = c("date", "birth_months", "weigth", "sex")))
+```
+
+```{r}
+number2017 <- births2017 %>% count(sex)
+number2017
+
+number2018 <- births2018 %>% count(sex)
+number2018 
+
+numberdiffer <- number2017$n - number2018$n
+
+numberdiffer 
+
+realation2017 <- 1977663/1887091
+realation2018 <- 19432373/1858261
+
+paste("the realation between boys and girls is ", realation2017 , "in year 2017, and ", realation2018, "in year 2018")
+```
+
+```{r}
+ggplot(births2018, aes( x = sex, y = birth_months, color (sex), year))
+```
+```{r}
+yeardiff2017 <- births2017 %>%
+  group_ny(births_months) 
+summarize(meanweigth = mean(weigth))
+view(yeardiff2017)
+```
+
+
